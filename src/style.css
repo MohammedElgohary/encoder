@@ -1,0 +1,131 @@
+
+/* Vars */
+:root{
+  --mainColor: #fff;
+  --mainBackground: #000;
+  --BackgroundLight: #eee;
+  --BackgroundFooter: #222;
+}
+
+/* Settings */
+body { padding: 0px; margin: 0px; font-size: 21px;}
+* {
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  scroll-behavior: smooth;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+*:focus-visible {
+  outline: 0px !important;
+  box-shadow: unset !important;
+}
+
+@-moz-document url-prefix() {
+  html {
+    scrollbar-width: none;
+  }
+}
+body {
+  margin: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  overflow-x: hidden !important;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  display: none;
+}
+
+
+/* General */
+.mian-header
+.content,
+.content .controls,
+.content .controls button,
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content #textCode,
+.content .controls button {
+  border: 0px;
+  outline: 0px;
+  box-shadow: unset;
+}
+
+.content #textCode,
+.content .controls button,
+#result {
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+/* Style */
+.mian-header {
+  position: relative;
+  font-size: 4.5vmin;
+  padding: 60px 0;
+  background-color: var(--mainBackground);
+  color: var(--mainColor);
+  text-align: center;
+}
+
+.content {
+  flex-direction: column;
+}
+
+.content #textCode {
+  padding: 18px 25px;
+  width: 100%;
+  min-height: 200px;
+  font-size: 21px;
+  resize: vertical;
+}
+
+.content .controls {
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.content .controls button {
+  flex-grow: 1;
+  flex-basis: 0;
+  margin: 10px;
+  padding: 12px 25px;
+  font-size: 21px;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.content .controls button:hover,
+.content .controls button:focus {
+  background-color: var(--mainBackground);
+  color: var(--mainColor);
+}
+
+#result {
+  background-color: var(--BackgroundLight);
+  color: var(--mainBackground);
+  padding: 25px 35px;
+  margin: 8px 10px;
+}
+
+.footer {
+  margin-top: 25px;
+  padding: 25px 0;
+  background-color: var(--BackgroundFooter);
+  color: var(--mainColor);
+}
