@@ -10,6 +10,8 @@
   <body>
     <header class="mian-header">
       <h1>Encoder</h1>
+      <select id="langSelect">
+      </select>
     </header>
 
     <main class="content">
@@ -24,12 +26,14 @@
 
     <section id="result">The result will appear here</section>
 
-    <footer class="footer">
+    <footer class="footer" id="footer">
       <h3>
         &copy; <strong>Mohammed Elgohary</strong>
         <span class="orange"><script>document.write(new Date().getFullYear());</script></span>
       </h3>
     </footer>
+
+    <script type="module" src="./save.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

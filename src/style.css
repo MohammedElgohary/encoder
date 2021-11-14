@@ -57,7 +57,8 @@ body::-webkit-scrollbar {
 }
 
 .content #textCode,
-.content .controls button {
+.content .controls button,
+.mian-header #langSelect {
   border: 0px;
   outline: 0px;
   box-shadow: unset;
@@ -65,7 +66,8 @@ body::-webkit-scrollbar {
 
 .content #textCode,
 .content .controls button,
-#result {
+#result,
+.mian-header #langSelect {
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -81,6 +83,24 @@ body::-webkit-scrollbar {
   background-color: var(--mainBackground);
   color: var(--mainColor);
   text-align: center;
+}
+
+.mian-header #langSelect {
+  padding: 8px 25px;
+  font-size: 21px;
+  background: var(--BackgroundFooter) !important;
+  color: var(--mainColor);
+  position: absolute;
+}
+
+body.ar .mian-header #langSelect {
+  top: 20px;
+  right: 10px;
+}
+
+body.en .mian-header #langSelect {
+  top: 20px;
+  left: 10px;
 }
 
 .content {
