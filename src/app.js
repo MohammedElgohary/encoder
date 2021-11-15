@@ -156,7 +156,7 @@ const langsConfig = {
 };
 
 const MyThemes = {
-  blue: ":root {--mainColor: #fff;--mainBackground: #2c3e50;--BackgroundLight: #eee--BackgroundFooter: #37516b;}",
+  blue: ":root {--mainColor: #fff;--mainBackground: #2c3e50;--BackgroundLight: #eee;--BackgroundFooter: #37516b;}",
   purple:
     ":root {--mainColor: #fff;--mainBackground: #8e44ad;--BackgroundLight: #efcefd;--BackgroundFooter: #996aad;}",
   orange:
