@@ -108,7 +108,12 @@ body.ar .mian-header #themes {
   left: 15px;
 }
 
-body.en .mian-header #themes {
+body.en .mian-header #themes,
+body.gr .mian-header #themes,
+body.es .mian-header #themes,
+body.ru .mian-header #themes,
+body.hi .mian-header #themes,
+body.fr .mian-header #themes {
   right: 15px;
 }
 
@@ -147,7 +152,12 @@ body.ar .mian-header #langSelect {
   right: 10px;
 }
 
-body.en .mian-header #langSelect {
+body.en .mian-header #langSelect ,
+body.gr .mian-header #langSelect ,
+body.es .mian-header #langSelect ,
+body.ru .mian-header #langSelect ,
+body.hi .mian-header #langSelect ,
+body.fr .mian-header #langSelect {
   top: 20px;
   left: 10px;
 }

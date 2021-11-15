@@ -27,9 +27,13 @@ const langs = {
   en: "en",
   ar: "ar",
   fr: "fr",
+  gr: "gr",
+  es: "es",
+  ru: "ru",
+  hi: "hi",
 };
 
-const langsText = {
+const langsConfig = {
   en: {
     index: 0,
     header: "Encoder",
@@ -42,7 +46,7 @@ const langsText = {
     btnOpen: "Open",
     noResult: "The result will appear here",
     footer: `&copy; <strong>Mohammed Elgohary</strong>
-    <span class="orange">${new Date().getFullYear()}</span>`,
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
     dir: "ltr",
     key: "en",
     name: "English",
@@ -59,10 +63,95 @@ const langsText = {
     btnOpen: "فتح",
     noResult: "ستظهر النتسجة هنا",
     footer: `&copy; <strong>محمد الجوهري</strong>
-    <span class="orange">${new Date().getFullYear()}</span>`,
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
     dir: "rtl",
     key: "ar",
     name: "العربيه",
+  },
+  fr: {
+    index: 2,
+    header: "Encoder",
+    textBoxPlaceHolder: "Entrez du texte...",
+    secretPlaceHolder: "Secrète...",
+    btnEncode: "Encoder",
+    btnDecode: "Décoder",
+    btnCopy: "Copie",
+    btnSave: "sauvegarder",
+    btnOpen: "Ouvert",
+    noResult: "Le résultat apparaîtra ici",
+    footer: `&copy; <strong>Mohammed Elgohary</strong>
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
+    dir: "ltr",
+    key: "fr",
+    name: "français",
+  },
+  gr: {
+    index: 3,
+    header: "Encoder",
+    textBoxPlaceHolder: "Geben Sie etwas Text ein ...",
+    secretPlaceHolder: "Geheimnis ...",
+    btnEncode: "Kodieren",
+    btnDecode: "Dekodieren",
+    btnCopy: "Kopieren",
+    btnSave: "Speichern",
+    btnOpen: "Offen",
+    noResult: "Das Ergebnis erscheint hier",
+    footer: `&copy; <strong>Mohammed Elgohary</strong>
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
+    dir: "ltr",
+    key: "gr",
+    name: "Deutsch",
+  },
+  es: {
+    index: 4,
+    header: "Encoder",
+    textBoxPlaceHolder: "SecrIntroduzca algún texto...",
+    secretPlaceHolder: "Secreto ...",
+    btnEncode: "Codificar",
+    btnDecode: "Descodificar",
+    btnCopy: "Dupdo",
+    btnSave: "Ahorrar",
+    btnOpen: "Abierto",
+    noResult: "El resultado aparecerá aquí",
+    footer: `&copy; <strong>Mohammed Elgohary</strong>
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
+    dir: "ltr",
+    key: "es",
+    name: "Español",
+  },
+  ru: {
+    index: 5,
+    header: "Encoder",
+    textBoxPlaceHolder: "какой-нибудь текст ...",
+    secretPlaceHolder: "Секрет ...",
+    btnEncode: "Кодировать",
+    btnDecode: "Декодировать",
+    btnCopy: "Копировать",
+    btnSave: "Сохранить",
+    btnOpen: "Открытым",
+    noResult: "Результат появится здесь",
+    footer: `&copy; <strong>Мохаммед Эльгохари</strong>
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
+    dir: "ltr",
+    key: "ru",
+    name: "русский",
+  },
+  hi: {
+    index: 6,
+    header: "Encoder",
+    textBoxPlaceHolder: "यहां कुछ टेक्स्ट दर्ज करें ...",
+    secretPlaceHolder: "गुप्त  ...",
+    btnEncode: "एन्कोड",
+    btnDecode: "व्याख्या करना",
+    btnCopy: "प्रतिलिपि",
+    btnSave: "सहेजें",
+    btnOpen: "खोलना",
+    noResult: "परिणाम यहां दिखाई देगा",
+    footer: `&copy; <strong>मोहम्मद एल्गोहरी </strong>
+    <span class="orange"> ${new Date().getFullYear()} </span>`,
+    dir: "ltr",
+    key: "hi",
+    name: "हिंदी",
   },
 };
 
@@ -76,7 +165,7 @@ const MyThemes = {
     ":root {--mainColor: #fff;--mainBackground: #000;--BackgroundLight: #eee;--BackgroundFooter: #222;}",
 };
 
-let DefaultLang = langs.ar;
+let DefaultLang = langs.en;
 let currentLang = localStorage.getItem("lang") || DefaultLang;
 
 let DefaultTheme = "blue";
@@ -98,7 +187,7 @@ const makeCode = (str, op) => {
     res += String.fromCharCode(code);
   }
 
-  res = res || langsText[currentLang].noResult;
+  res = res || langsConfig[currentLang].noResult;
   result.innerHTML = res;
   localStorage.setItem("text", str);
 };
@@ -128,23 +217,23 @@ const changeTheme = (theme) => {
 };
 
 const translate = (lang = DefaultLang) => {
-  editor.setAttribute("placeholder", langsText[lang].textBoxPlaceHolder);
-  secretInput.setAttribute("placeholder", langsText[lang].secretPlaceHolder);
-  btnEncode.innerText = langsText[lang].btnEncode;
-  btnDecode.innerText = langsText[lang].btnDecode;
-  btnCopy.innerText = langsText[lang].btnCopy;
-  btnSave.innerText = langsText[lang].btnSave;
-  btnOpen.innerText = langsText[lang].btnOpen;
-  result.innerText = langsText[lang].noResult;
-  document.querySelector("#footer").innerHTML = langsText[lang].footer;
+  editor.setAttribute("placeholder", langsConfig[lang].textBoxPlaceHolder);
+  secretInput.setAttribute("placeholder", langsConfig[lang].secretPlaceHolder);
+  btnEncode.innerText = langsConfig[lang].btnEncode;
+  btnDecode.innerText = langsConfig[lang].btnDecode;
+  btnCopy.innerText = langsConfig[lang].btnCopy;
+  btnSave.innerText = langsConfig[lang].btnSave;
+  btnOpen.innerText = langsConfig[lang].btnOpen;
+  result.innerText = langsConfig[lang].noResult;
+  document.querySelector("#footer").innerHTML = langsConfig[lang].footer;
 
   localStorage.setItem("lang", lang);
   currentLang = lang;
 
-  document.body.dir = langsText[lang].dir;
+  document.body.dir = langsConfig[lang].dir;
 
   langSelect.setAttribute("value", lang);
-  langSelect.selectedIndex = langsText[lang].index;
+  langSelect.selectedIndex = langsConfig[lang].index;
 
   document.body.setAttribute("class", lang);
 };
@@ -182,7 +271,7 @@ btnCopy.addEventListener("click", () => {
 });
 
 btnSave.addEventListener("click", () => {
-  if (result.innerText !== langsText[currentLang].noResult) {
+  if (result.innerText !== langsConfig[currentLang].noResult) {
     var blob = new Blob([result.innerText], {
       type: "text/plain;charset=utf-8",
     });
@@ -237,9 +326,9 @@ window.onload = () => {
 
   makeCode(editor.value, operations.encode);
 
-  for (let key in langsText) {
-    langSelect.innerHTML += `<option value="${langsText[key].key}" ${
+  for (let key in langsConfig) {
+    langSelect.innerHTML += `<option value="${langsConfig[key].key}" ${
       currentLang === key ? "selected" : ""
-    }>${langsText[key].name}</option>`;
+    }>${langsConfig[key].name}</option>`;
   }
 };

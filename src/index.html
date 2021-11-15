@@ -5,21 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>encoder</title>
+    <link rel="shortcut icon" href="./fav.ico" type="image/x-icon">
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
+  <body class="en">
     <header class="mian-header">
       <h1>Encoder</h1>
       <select id="langSelect"></select>
-      
+
       <div id="themes">
-        <div class="theme active" style="background-color: #000000" name="black"></div>
+        <div
+          class="theme active"
+          style="background-color: #000000"
+          name="black"
+        ></div>
 
         <div class="theme" style="background-color: #2c3e50" name="blue"></div>
 
-        <div class="theme" style="background-color: #e67e22;" name="orange"></div>
+        <div
+          class="theme"
+          style="background-color: #e67e22"
+          name="orange"
+        ></div>
 
-        <div class="theme" style="background-color: #8e44ad" name="purple" ></div>
+        <div
+          class="theme"
+          style="background-color: #8e44ad"
+          name="purple"
+        ></div>
       </div>
     </header>
 
@@ -38,7 +51,7 @@
         <button id="btnOpen">Open</button>
       </div>
     </main>
-    
+
     <input type="file" id="MyFile" style="display: none" />
 
     <section id="result">The result will appear here</section>
