@@ -10,30 +10,51 @@
   <body>
     <header class="mian-header">
       <h1>Encoder</h1>
-      <select id="langSelect">
-      </select>
+      <select id="langSelect"></select>
+      
+      <div id="themes">
+        <div class="theme active" style="background-color: #000000" name="black"></div>
+
+        <div class="theme" style="background-color: #2c3e50" name="blue"></div>
+
+        <div class="theme" style="background-color: #e67e22;" name="orange"></div>
+
+        <div class="theme" style="background-color: #8e44ad" name="purple" ></div>
+      </div>
     </header>
 
     <main class="content">
       <textarea id="textCode" placeholder="Enter some text"></textarea>
+
+      <div class="secretContainer">
+        <input type="text" id="secret" placeholder="Secret ..." />
+      </div>
+
       <div class="controls">
         <button id="btnEncode">encode</button>
         <button id="btnDecode">decode</button>
         <button id="btnCopy">copy</button>
         <button id="btnSave">save</button>
+        <button id="btnOpen">Open</button>
       </div>
     </main>
+    
+    <input type="file" id="MyFile" style="display: none" />
 
     <section id="result">The result will appear here</section>
 
     <footer class="footer" id="footer">
       <h3>
         &copy; <strong>Mohammed Elgohary</strong>
-        <span class="orange"><script>document.write(new Date().getFullYear());</script></span>
+        <span class="orange"
+          ><script>
+            document.write(new Date().getFullYear());
+          </script></span
+        >
       </h3>
     </footer>
 
-    <script type="module" src="./save.js"></script>
+    <script src="./save.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

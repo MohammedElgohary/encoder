@@ -1,6 +1,5 @@
-
 /* Vars */
-:root{
+:root {
   --mainColor: #fff;
   --mainBackground: #000;
   --BackgroundLight: #eee;
@@ -8,7 +7,11 @@
 }
 
 /* Settings */
-body { padding: 0px; margin: 0px; font-size: 21px;}
+body {
+  padding: 0px;
+  margin: 0px;
+  font-size: 21px;
+}
 * {
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
@@ -17,7 +20,7 @@ body { padding: 0px; margin: 0px; font-size: 21px;}
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   scroll-behavior: smooth;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 *:focus-visible {
@@ -44,9 +47,9 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-
 /* General */
-.mian-header
+.mian-header,
+.mian-header #themes,
 .content,
 .content .controls,
 .content .controls button,
@@ -57,6 +60,7 @@ body::-webkit-scrollbar {
 }
 
 .content #textCode,
+.secretContainer #secret,
 .content .controls button,
 .mian-header #langSelect {
   border: 0px;
@@ -66,6 +70,7 @@ body::-webkit-scrollbar {
 
 .content #textCode,
 .content .controls button,
+.secretContainer #secret,
 #result,
 .mian-header #langSelect {
   border-radius: 8px;
@@ -83,6 +88,7 @@ body::-webkit-scrollbar {
   background-color: var(--mainBackground);
   color: var(--mainColor);
   text-align: center;
+  min-height: 300px;
 }
 
 .mian-header #langSelect {
@@ -91,6 +97,49 @@ body::-webkit-scrollbar {
   background: var(--BackgroundFooter) !important;
   color: var(--mainColor);
   position: absolute;
+}
+
+.mian-header #themes {
+  position: absolute;
+  bottom: 20px;
+}
+
+body.ar .mian-header #themes {
+  left: 15px;
+}
+
+body.en .mian-header #themes {
+  right: 15px;
+}
+
+.mian-header #themes .theme {
+  width: 35px;
+  height: 35px;
+  margin: 0px 5px;
+  outline-offset: -1px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+.mian-header #themes .theme:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+
+.mian-header #themes .theme.active {
+  outline: 3px solid #fff;
 }
 
 body.ar .mian-header #langSelect {
@@ -115,9 +164,23 @@ body.en .mian-header #langSelect {
   resize: vertical;
 }
 
+.secretContainer {
+  width: 100%;
+}
+
+.secretContainer #secret {
+  width: calc(100% - 20px);
+  padding: 12px 25px;
+  margin: 15px 10px;
+  margin-bottom: 0px;
+  font-size: 21px;
+  border: 1px solid #ccc;
+}
+
 .content .controls {
-  margin-top: 15px;
+  margin-top: 10px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .content .controls button {
@@ -140,7 +203,7 @@ body.en .mian-header #langSelect {
   background-color: var(--BackgroundLight);
   color: var(--mainBackground);
   padding: 25px 35px;
-  margin: 8px 10px;
+  margin: 10px;
 }
 
 .footer {

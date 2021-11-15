@@ -1,13 +1,17 @@
 /* Elements */
 const editor = document.querySelector("#textCode"),
+  secretInput = document.querySelector("#secret"),
   btnSave = document.querySelector("#btnSave"),
   btnCopy = document.querySelector("#btnCopy"),
   btnEncode = document.querySelector("#btnEncode"),
   btnDecode = document.querySelector("#btnDecode"),
+  btnOpen = document.querySelector("#btnOpen"),
+  MyFile = document.querySelector("#MyFile"),
   result = document.querySelector("#result"),
-  langSelect = document.querySelector("#langSelect");
+  langSelect = document.querySelector("#langSelect"),
+  themes = document.querySelectorAll("#themes .theme");
 
-const secret = 777;
+let secret = localStorage.getItem("secret") || 777;
 
 const keys = {
   enter: null,
@@ -26,12 +30,15 @@ const langs = {
 
 let langsText = {
   en: {
+    index: 0,
     header: "Encoder",
     textBoxPlaceHolder: "Enter some text ...",
+    secretPlaceHolder: "Secret ...",
     btnEncode: "Encode",
     btnDecode: "Decode",
     btnCopy: "Copy",
     btnSave: "Save",
+    btnOpen: "Open",
     noResult: "The result will appear here",
     footer: `&copy; <strong>Mohammed Elgohary</strong>
     <span class="orange">${new Date().getFullYear()}</span>`,
@@ -40,12 +47,15 @@ let langsText = {
     name: "English",
   },
   ar: {
+    index: 1,
     header: "Encoder",
     textBoxPlaceHolder: "اكتب بعض النص ...",
+    secretPlaceHolder: "كلمة السر ...",
     btnEncode: "تشفير",
     btnDecode: "فك تشفير",
     btnCopy: "نسخ",
     btnSave: "حفظ",
+    btnOpen: "فتح",
     noResult: "ستظهر النتسجة هنا",
     footer: `&copy; <strong>محمد الجوهري</strong>
     <span class="orange">${new Date().getFullYear()}</span>`,
@@ -56,13 +66,14 @@ let langsText = {
 };
 
 let DefaultLang = langs.ar;
-let currentLang = localStorage.getItem("lang") || langs.ar;
+let currentLang = localStorage.getItem("lang") || DefaultLang;
 
-const encodeSum = (num) => num * 79 + secret;
+const encodeSum = (num) => +num * 12 + secret;
 
-const decodeSum = (num) => (num - secret) / 79;
+const decodeSum = (num) => (+num - +secret) / 12;
 
 const makeCode = (str, op) => {
+
   let res = "";
 
   for (let index in str) {
@@ -97,30 +108,48 @@ const copyResult = (str) => {
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(selected);
   }
-
-  toast.success("تم نسخ الكود بنجاح");
 };
 
 const translate = (lang = DefaultLang) => {
   editor.setAttribute("placeholder", langsText[lang].textBoxPlaceHolder);
+  secretInput.setAttribute("placeholder", langsText[lang].secretPlaceHolder);
   btnEncode.innerText = langsText[lang].btnEncode;
   btnDecode.innerText = langsText[lang].btnDecode;
   btnCopy.innerText = langsText[lang].btnCopy;
   btnSave.innerText = langsText[lang].btnSave;
+  btnOpen.innerText = langsText[lang].btnOpen;
   result.innerText = langsText[lang].noResult;
   document.querySelector("#footer").innerHTML = langsText[lang].footer;
 
   localStorage.setItem("lang", lang);
+  currentLang = lang;
+
   document.body.dir = langsText[lang].dir;
 
-  currentLang = lang;
-  langSelect.value = currentLang;
+  langSelect.setAttribute("value", lang);
+  langSelect.selectedIndex = langsText[lang].index;
 
   document.body.setAttribute("class", lang);
 };
 
 editor.addEventListener("keyup", (e) => {
   makeCode(e.target.value, operations.encode);
+});
+
+secretInput.addEventListener("keyup", (e) => {
+  let str = e.target.value;
+  let secretVal = 0;
+
+  for (let index in str) {
+    secretVal += str.charCodeAt(index);
+  }
+
+  secret = secretVal;
+
+  localStorage.setItem("secret", secretVal);
+  localStorage.setItem("secretString", str);
+
+  makeCode(editor.value, operations.encode);
 });
 
 btnDecode.addEventListener("click", () => {
@@ -136,19 +165,55 @@ btnCopy.addEventListener("click", () => {
 });
 
 btnSave.addEventListener("click", () => {
-  var blob = new Blob([result.innerText], { type: "text/plain;charset=utf-8" });
-  FileSaver.saveAs(blob, `encoder${Math.random()*99999}.txt`);
+  if (result.innerText !== langsText[currentLang].noResult) {
+    var blob = new Blob([result.innerText], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, `Encoder${Math.random() * 99999}.txt`);
+  }
+});
+
+btnOpen.addEventListener("click", () => {
+  MyFile.click();
+});
+
+MyFile.addEventListener("change", (e) => {
+  var fr = new FileReader();
+  fr.onload = function () {
+    editor.value = fr.result;
+    makeCode(fr.result, operations.decode);
+  };
+
+  fr.readAsText(e.target.files[0]);
 });
 
 langSelect.addEventListener("change", (e) => {
   translate(e.target.value);
 });
 
+themes.forEach(theme => {
+  theme.addEventListener("click", (e) => {
+    let themeName = e.target.getAttribute("name");
+    localStorage.setItem("theme", themeName);
+
+    themes.forEach(t => t.classList.remove("active"));
+    theme.classList.add("active");
+  });
+
+  currentLang = localStorage.getItem("lang") || DefaultLang;
+
+  editor.value = localStorage.getItem("text") || "";
+});
+
+
 window.onload = () => {
-  let lang = currentLang;
-  translate(lang);
+
+  translate(currentLang);
+
+  secret = localStorage.getItem("secret") || 777;
+  secretInput.value = localStorage.getItem("secretString") || "";
+
+  makeCode(editor.value, operations.encode);
 
   for (let key in langsText) {
-    langSelect.innerHTML += `<option value="${langsText[key].key}">${langsText[key].name}</option>`;
+    langSelect.innerHTML += `<option value="${langsText[key].key}" ${currentLang === key ? "selected" : ""}>${langsText[key].name}</option>`;
   }
 };
