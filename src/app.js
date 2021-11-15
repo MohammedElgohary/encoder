@@ -9,6 +9,7 @@ const editor = document.querySelector("#textCode"),
   MyFile = document.querySelector("#MyFile"),
   result = document.querySelector("#result"),
   langSelect = document.querySelector("#langSelect"),
+  styler = document.querySelector("#styler"),
   themes = document.querySelectorAll("#themes .theme");
 
 let secret = localStorage.getItem("secret") || 777;
@@ -28,7 +29,7 @@ const langs = {
   fr: "fr",
 };
 
-let langsText = {
+const langsText = {
   en: {
     index: 0,
     header: "Encoder",
@@ -65,15 +66,27 @@ let langsText = {
   },
 };
 
+const MyThemes = {
+  blue: ":root {--mainColor: #fff;--mainBackground: #2c3e50;--BackgroundLight: #eee--BackgroundFooter: #37516b;}",
+  purple:
+    ":root {--mainColor: #fff;--mainBackground: #8e44ad;--BackgroundLight: #efcefd;--BackgroundFooter: #996aad;}",
+  orange:
+    ":root {--mainColor: #fff;--mainBackground: #e67e22;--BackgroundLight: #fdecde;--BackgroundFooter: #eba161;}",
+  black:
+    ":root {--mainColor: #fff;--mainBackground: #000;--BackgroundLight: #eee;--BackgroundFooter: #222;}",
+};
+
 let DefaultLang = langs.ar;
 let currentLang = localStorage.getItem("lang") || DefaultLang;
+
+let DefaultTheme = "blue";
+let currentTheme = localStorage.getItem("theme") || DefaultTheme;
 
 const encodeSum = (num) => +num * 12 + secret;
 
 const decodeSum = (num) => (+num - +secret) / 12;
 
 const makeCode = (str, op) => {
-
   let res = "";
 
   for (let index in str) {
@@ -108,6 +121,10 @@ const copyResult = (str) => {
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(selected);
   }
+};
+
+const changeTheme = (theme) => {
+  styler.innerHTML = `<style>${MyThemes[theme]}</style>`;
 };
 
 const translate = (lang = DefaultLang) => {
@@ -166,7 +183,9 @@ btnCopy.addEventListener("click", () => {
 
 btnSave.addEventListener("click", () => {
   if (result.innerText !== langsText[currentLang].noResult) {
-    var blob = new Blob([result.innerText], { type: "text/plain;charset=utf-8" });
+    var blob = new Blob([result.innerText], {
+      type: "text/plain;charset=utf-8",
+    });
     saveAs(blob, `Encoder${Math.random() * 99999}.txt`);
   }
 });
@@ -189,31 +208,38 @@ langSelect.addEventListener("change", (e) => {
   translate(e.target.value);
 });
 
-themes.forEach(theme => {
+themes.forEach((theme) => {
   theme.addEventListener("click", (e) => {
+
     let themeName = e.target.getAttribute("name");
+    changeTheme(themeName);
+
     localStorage.setItem("theme", themeName);
 
-    themes.forEach(t => t.classList.remove("active"));
+    themes.forEach((t) => t.classList.remove("active"));
     theme.classList.add("active");
+    
+    currentTheme = themeName;
   });
-
-  currentLang = localStorage.getItem("lang") || DefaultLang;
-
-  editor.value = localStorage.getItem("text") || "";
+  
+  theme.classList.remove("active");
+  if (theme.getAttribute("name") === currentTheme ) {
+    theme.classList.add("active");
+  }
 });
 
-
 window.onload = () => {
-
+  changeTheme(currentTheme);
   translate(currentLang);
-
-  secret = localStorage.getItem("secret") || 777;
+  
+  editor.value = localStorage.getItem("text") || "";
   secretInput.value = localStorage.getItem("secretString") || "";
 
   makeCode(editor.value, operations.encode);
 
   for (let key in langsText) {
-    langSelect.innerHTML += `<option value="${langsText[key].key}" ${currentLang === key ? "selected" : ""}>${langsText[key].name}</option>`;
+    langSelect.innerHTML += `<option value="${langsText[key].key}" ${
+      currentLang === key ? "selected" : ""
+    }>${langsText[key].name}</option>`;
   }
 };
