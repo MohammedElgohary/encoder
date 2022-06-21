@@ -3,7 +3,7 @@
   
 ## [`See Live Here`](https://mohammedelgohary.github.io/encoder/)
 
-## Build with:
+## Made with:
   * HTML5
   * CSS3
   * Javascript `ES6`
